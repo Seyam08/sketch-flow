@@ -1,1 +1,27 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility bg-primary {
+  @apply bg-[#efefef] dark:bg-[#0D1117];
+}
+@utility bg-secondary {
+  @apply bg-[#f6f6f6] dark:bg-[#161B22];
+}
+@utility bg-tertiary {
+  @apply bg-[#f1edf9] dark:bg-[#21262D];
+}
+@utility foreground {
+  @apply bg-teal-500;
+}
+@utility border-thin {
+  @apply border border-gray-300 dark:border-gray-600;
+}
+@utility text-primary {
+  @apply text-[#140C37] dark:text-[#EDEDED];
+}
+@utility text-secondary {
+  @apply text-[#263858] dark:text-[#c7c7c7];
+}
+@utility text-tertiary {
+  @apply text-[#091e42] dark:text-[#a1a1a1];
+}
