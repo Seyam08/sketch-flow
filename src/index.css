@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  /* Chrome, Safari, Edge */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: none; /* scrollbar invisible */
+  }
+
+  /* IE, old Edge */
+  * {
+    -ms-overflow-style: none;
+  }
+}
 @utility bg-primary {
   @apply bg-[#efefef] dark:bg-[#0D1117];
 }
