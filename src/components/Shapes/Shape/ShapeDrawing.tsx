@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from "react";
-import type { Position, ShapeDrawProps } from "../../../../types/shape.types";
+import type { Position, ShapeDrawProps } from "../../../types/shape.types";
 
 export default function ShapeDrawing({
   left,

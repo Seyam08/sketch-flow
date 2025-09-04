@@ -4,7 +4,7 @@ import type {
   ShapeProps,
   ShapeType,
   dragOffset,
-} from "../../../../types/shape.types";
+} from "../../../types/shape.types";
 
 export default function Shape({
   left,

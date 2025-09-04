@@ -1,4 +1,4 @@
-import ShapesDrawer from "./components/Shapes/Rectangle/ShapesDrawer/ShapesDrawer";
+import ShapesDrawer from "./components/Shapes/ShapesDrawer/ShapesDrawer";
 import ToggleTheme from "./components/ToggleTheme/ToggleTheme";
 import useColorMode from "./hooks/useTheme";
 

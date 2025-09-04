@@ -1,8 +1,8 @@
 import { useRef, useState, type JSX } from "react";
-import ClearAll from "../../../../ClearAll/ClearAll";
-import type { ShapeType, StartPoint } from "../../../../types/shape.types";
-import { getRandomColor } from "../../../../util/getRandomColor";
-import { randomId } from "../../../../util/randomId";
+import ClearAll from "../../../ClearAll/ClearAll";
+import type { ShapeType, StartPoint } from "../../../types/shape.types";
+import { getRandomColor } from "../../../util/getRandomColor";
+import { randomId } from "../../../util/randomId";
 import Shape from "../Shape/Shape";
 import ShapeDrawing from "../Shape/ShapeDrawing";
 
