@@ -1,7 +1,6 @@
 import { useRef, useState, type JSX } from "react";
 import ClearAll from "../../../ClearAll/ClearAll";
 import type { ShapeType, StartPoint } from "../../../types/shape.types";
-import { getRandomColor } from "../../../util/getRandomColor";
 import { randomId } from "../../../util/randomId";
 import Shape from "../Shape/Shape";
 import ShapeDrawing from "../Shape/ShapeDrawing";
@@ -16,7 +15,7 @@ export default function ShapesDrawer(): JSX.Element {
   const [shape, setShape] = useState<ShapeType | null>(null); // for showing shape after created
   const [shapeList, setShapeList] = useState<ShapeType[]>([]); // for creating array of shape
 
-  const [color, setColor] = useState<string>("gray");
+  const [color, setColor] = useState<string>("transparent");
   const [id, setId] = useState<string>(""); // to preserve a random id for shape
   const draggingRef = useRef(false); // for tracking drag
 
@@ -26,7 +25,7 @@ export default function ShapesDrawer(): JSX.Element {
     }
     setIsDrawing(true);
     startPoint.current = { X: e.clientX, Y: e.clientY }; // holding the start value while starting to draw
-    setColor(getRandomColor());
+
     const id = randomId();
     setId(id);
   };

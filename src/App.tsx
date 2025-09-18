@@ -1,17 +1,17 @@
-import ShapesDrawer from "./components/Shapes/ShapesDrawer/ShapesDrawer";
-import ToggleTheme from "./components/ToggleTheme/ToggleTheme";
-import useColorMode from "./hooks/useTheme";
+import ShapesDrawer from "@/components/Shapes/ShapesDrawer/ShapesDrawer";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "./components/mode-toggle";
 
 function App() {
-  useColorMode();
-
   return (
-    <div className="min-h-screen min-w-screen bg-primary ">
-      <div className="fixed bottom-2 right-2 z-50">
-        <ToggleTheme />
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="min-h-screen min-w-screen">
+        <div className="fixed top-2 right-2 z-50">
+          <ModeToggle />
+        </div>
+        <ShapesDrawer />
       </div>
-      <ShapesDrawer />
-    </div>
+    </ThemeProvider>
   );
 }
 
