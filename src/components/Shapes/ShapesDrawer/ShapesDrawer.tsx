@@ -1,6 +1,7 @@
 import ClearAll from "@/ClearAll/ClearAll";
 import Shape from "@/components/Shapes/Shape/Shape";
 import ShapeDrawing from "@/components/Shapes/Shape/ShapeDrawing";
+import { clamp } from "@/lib/utils";
 import { useShapeStore, type ShapeKind } from "@/stores/shapeStore";
 import type { ShapeType, StartPoint } from "@/types/shape.types";
 import { randomId } from "@/util/randomId";
@@ -39,11 +40,35 @@ export default function ShapesDrawer(): JSX.Element {
     if (isDrawing && !isInside) {
       // only execute if drawing started and not inside of any shape
       draggingRef.current = true; // for tracking drag
-      const x = Math.min(e.clientX, startPoint.current.X);
-      const y = Math.min(e.clientY, startPoint.current.Y);
-      const w = Math.abs(e.clientX - startPoint.current.X);
-      const h = Math.abs(e.clientY - startPoint.current.Y);
-      const size = Math.max(w, h);
+      const startX = startPoint.current.X;
+      const startY = startPoint.current.Y;
+      const cursorX = e.clientX;
+      const cursorY = e.clientY;
+
+      // Determine top-left corner regardless of drag direction
+      let x = Math.min(cursorX, startX);
+      let y = Math.min(cursorY, startY);
+
+      // Calculate width/height (always positive)
+      const w = Math.abs(cursorX - startX);
+      const h = Math.abs(cursorY - startY);
+
+      // For a square, use the bigger side
+      let size = Math.max(w, h);
+
+      // Viewport limits
+      const maxX = window.innerWidth;
+      const maxY = window.innerHeight;
+
+      // Clamp X, Y (not below 0 and not outside viewport)
+      x = clamp(x, 0, maxX);
+      y = clamp(y, 0, maxY);
+
+      // Make sure the square doesn't go outside the viewport
+      size = Math.min(size, maxX - x, maxY - y);
+
+      // Safety to avoid negative size
+      size = Math.max(0, size);
 
       let finalShape;
 
