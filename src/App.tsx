@@ -1,7 +1,7 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import ShapesDrawer from "@/components/Shapes/ShapesDrawer/ShapesDrawer";
+import { ShapeSelectGroup } from "@/components/Shapes/ShapeSelectGroup/ShapeSelectGroup";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "./components/mode-toggle";
-import { ShapeSelectGroup } from "./components/Shapes/ShapeSelectGroup/ShapeSelectGroup";
 
 function App() {
   return (

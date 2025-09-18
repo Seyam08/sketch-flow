@@ -1,4 +1,5 @@
-import type { ShapeType } from "../types/allTypes";
+import { Button } from "@/components/ui/button";
+import type { ShapeType } from "@/types/shape.types";
 export default function ClearAll({
   setShapeList,
 }: {
@@ -10,12 +11,9 @@ export default function ClearAll({
 
   return (
     <div className="fixed bottom-2.5 right-2.5">
-      <button
-        className="bg-red-400 text-white px-4 py-1 rounded-md cursor-pointer"
-        onClick={onClearAll}
-      >
+      <Button className="cursor-pointer" onClick={onClearAll}>
         Clear All
-      </button>
+      </Button>
     </div>
   );
 }

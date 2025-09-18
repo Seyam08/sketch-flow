@@ -1,10 +1,10 @@
-import React, { useEffect, useState, type JSX } from "react";
 import type {
   Position,
   ShapeProps,
   ShapeType,
   dragOffset,
-} from "../../../types/shape.types";
+} from "@/types/shape.types";
+import React, { useEffect, useState, type JSX } from "react";
 
 export default function Shape({
   left,
@@ -33,7 +33,7 @@ export default function Shape({
   }, [left, top, height, width]); // updating current props if props change
 
   useEffect((): void | (() => void) => {
-    const handleMouseMove = (e: MouseEvent): void => {
+    const handlePointerMove = (e: PointerEvent): void => {
       if (!grab) return; // returning if shape is not grabbed
 
       draggingRef.current = true; // setting true cause dragging is started
@@ -52,7 +52,7 @@ export default function Shape({
       setCurrentPosition((prev) => ({ ...prev, x, y })); // updating the current position while dragging
     };
 
-    const handleMouseUp = (): void => {
+    const handlePointerUp = (): void => {
       if (!grab) return; // returning if shape is not grabbed
       setGrab(false); // releasing the grab
       setIsInside(false); // setting inInside false when mouseUp from shape
@@ -72,17 +72,20 @@ export default function Shape({
 
     if (grab) {
       // only add event listeners if shape is grabbed
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("pointermove", handlePointerMove);
+      window.addEventListener("pointerup", handlePointerUp);
     }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
     }; // remove event listener through cleanup function
   }, [grab, dragOffset, id, setIsInside, setShapeList, currentPosition]); // for re-run code if dependencies change
 
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Capture pointer to keep receiving events outside div
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+
     setIsInside(true); // setting isInside if mouse is down on shape
     setGrab(true); // making sure that shape is grabbed
     setDragOffset({
@@ -93,10 +96,10 @@ export default function Shape({
 
   return (
     <div
-      className={`absolute border border-gray-500 opacity-65 ${
+      className={`absolute border-2 border-foreground opacity-65 ${
         grab ? "cursor-grabbing" : "cursor-grab"
       }`}
-      onMouseDown={onMouseDown}
+      onPointerDown={onPointerDown}
       style={{
         left: `${currentPosition.x}px`,
         top: `${currentPosition.y}px`,
@@ -105,6 +108,7 @@ export default function Shape({
         backgroundColor: color,
         borderRadius: borderRadius,
         transform: transform,
+        touchAction: "none",
       }}
     ></div>
   );

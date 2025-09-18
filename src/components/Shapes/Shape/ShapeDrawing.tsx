@@ -1,5 +1,5 @@
+import type { Position, ShapeDrawProps } from "@/types/shape.types";
 import { useEffect, useState, type JSX } from "react";
-import type { Position, ShapeDrawProps } from "../../../types/shape.types";
 
 export default function ShapeDrawing({
   left,
@@ -23,7 +23,7 @@ export default function ShapeDrawing({
 
   return (
     <div
-      className="absolute border border-gray-500 opacity-65 cursor-grab"
+      className="absolute border-2 border-foreground opacity-65 cursor-grab"
       style={{
         left: `${currentPosition.x}px`,
         top: `${currentPosition.y}px`,

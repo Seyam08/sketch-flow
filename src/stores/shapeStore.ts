@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ShapeKind = "Rectangle" | "Circle" | "Diamond" | "square" | "";
+export type ShapeKind = "rectangle" | "circle" | "diamond" | "square" | "";
 
 interface ShapeState {
   shape: ShapeKind;

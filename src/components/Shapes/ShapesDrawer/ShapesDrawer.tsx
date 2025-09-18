@@ -1,9 +1,10 @@
+import ClearAll from "@/ClearAll/ClearAll";
+import Shape from "@/components/Shapes/Shape/Shape";
+import ShapeDrawing from "@/components/Shapes/Shape/ShapeDrawing";
+import { useShapeStore, type ShapeKind } from "@/stores/shapeStore";
+import type { ShapeType, StartPoint } from "@/types/shape.types";
+import { randomId } from "@/util/randomId";
 import { useRef, useState, type JSX } from "react";
-import ClearAll from "../../../ClearAll/ClearAll";
-import type { ShapeType, StartPoint } from "../../../types/shape.types";
-import { randomId } from "../../../util/randomId";
-import Shape from "../Shape/Shape";
-import ShapeDrawing from "../Shape/ShapeDrawing";
 
 export default function ShapesDrawer(): JSX.Element {
   const [isDrawing, setIsDrawing] = useState<boolean>(false); // state for control shape drawing start-end
@@ -18,8 +19,12 @@ export default function ShapesDrawer(): JSX.Element {
   const [color, setColor] = useState<string>("transparent");
   const [id, setId] = useState<string>(""); // to preserve a random id for shape
   const draggingRef = useRef(false); // for tracking drag
+  const shapeType: ShapeKind = useShapeStore((state) => state.shape);
 
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>): void => {
+    // Prevent scrolling on touch devices while drawing
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+
     if (isInside) {
       return; // retuning so that dragging can't be start inside of a shape
     }
@@ -30,31 +35,74 @@ export default function ShapesDrawer(): JSX.Element {
     setId(id);
   };
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>): void => {
     if (isDrawing && !isInside) {
       // only execute if drawing started and not inside of any shape
       draggingRef.current = true; // for tracking drag
-      let x = Math.min(e.clientX, startPoint.current.X);
-      let y = Math.min(e.clientY, startPoint.current.Y);
+      const x = Math.min(e.clientX, startPoint.current.X);
+      const y = Math.min(e.clientY, startPoint.current.Y);
       const w = Math.abs(e.clientX - startPoint.current.X);
       const h = Math.abs(e.clientY - startPoint.current.Y);
+      const size = Math.max(w, h);
 
-      let size = Math.max(w, h);
+      let finalShape;
 
-      setShape({
-        id: id,
-        X: x,
-        Y: y,
-        height: size,
-        width: size,
-        color: color,
-        borderRadius: "16px 16px 16px 16px",
-        transform: "rotate(45deg)",
-      });
+      if (shapeType === "rectangle") {
+        finalShape = {
+          id: id,
+          X: x,
+          Y: y,
+          height: h,
+          width: w,
+          color: color,
+          borderRadius: "16px 16px 16px 16px",
+          transform: "rotate(0deg)",
+        };
+      }
+      if (shapeType === "diamond") {
+        finalShape = {
+          id: id,
+          X: x,
+          Y: y,
+          height: size,
+          width: size,
+          color: color,
+          borderRadius: "16px 16px 16px 16px",
+          transform: "rotate(45deg)",
+        };
+      }
+      if (shapeType === "circle") {
+        finalShape = {
+          id: id,
+          X: x,
+          Y: y,
+          height: size,
+          width: size,
+          color: color,
+          borderRadius: "50% 50% 50% 50%",
+          transform: "rotate(0deg)",
+        };
+      }
+      if (shapeType === "square") {
+        finalShape = {
+          id: id,
+          X: x,
+          Y: y,
+          height: size,
+          width: size,
+          color: color,
+          borderRadius: "16px 16px 16px 16px",
+          transform: "rotate(0deg)",
+        };
+      }
+
+      finalShape && setShape(finalShape);
     }
   };
 
-  const onMouseUp = (): void => {
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>): void => {
+    (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+
     setIsDrawing(false); // drawing finished
     shape && setShapeList((prev) => [...prev, shape]); // if shape exists, add it to the list
     setShape(null); // resting the drawn shape
@@ -64,10 +112,12 @@ export default function ShapesDrawer(): JSX.Element {
   return (
     <>
       <div
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        className="cursor-crosshair h-screen w-screen relative"
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerMove={onPointerMove}
+        className={`h-screen w-screen relative touch-none ${
+          shapeType ? "cursor-crosshair" : "cursor-auto"
+        }`}
       >
         {shapeList.map((rect: ShapeType, index: number): JSX.Element => {
           return (
