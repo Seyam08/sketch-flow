@@ -17,7 +17,7 @@ export default function ShapesDrawer(): JSX.Element {
   const [shape, setShape] = useState<ShapeType | null>(null); // for showing shape after created
   const [shapeList, setShapeList] = useState<ShapeType[]>([]); // for creating array of shape
 
-  const [color, setColor] = useState<string>("transparent");
+  const [color] = useState<string>("transparent");
   const [id, setId] = useState<string>(""); // to preserve a random id for shape
   const draggingRef = useRef(false); // for tracking drag
   const shapeType: ShapeKind = useShapeStore((state) => state.shape);
