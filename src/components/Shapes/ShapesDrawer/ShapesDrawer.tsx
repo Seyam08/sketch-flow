@@ -21,6 +21,7 @@ export default function ShapesDrawer(): JSX.Element {
   const [id, setId] = useState<string>(""); // to preserve a random id for shape
   const draggingRef = useRef(false); // for tracking drag
   const shapeType: ShapeKind = useShapeStore((state) => state.shape);
+  const minSize = 40;
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>): void => {
     // Prevent scrolling on touch devices while drawing
@@ -129,7 +130,10 @@ export default function ShapesDrawer(): JSX.Element {
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
 
     setIsDrawing(false); // drawing finished
-    shape && setShapeList((prev) => [...prev, shape]); // if shape exists, add it to the list
+    shape &&
+      shape.height > minSize &&
+      shape.width > minSize &&
+      setShapeList((prev) => [...prev, shape]); // if shape exists, add it to the list
     setShape(null); // resting the drawn shape
     setTimeout(() => (draggingRef.current = false), 0); // setting drag false cause drag finished and using setTimeout to update state at last
   };
