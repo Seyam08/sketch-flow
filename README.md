@@ -72,3 +72,7 @@ Install this app with npm:
    ```
 
 4. Open the package.json file to see all the scripts.
+
+## Screenshots
+
+![App Screenshot](https://raw.githubusercontent.com/Seyam08/sketch-flow/refs/heads/main/screenshot.PNG)
