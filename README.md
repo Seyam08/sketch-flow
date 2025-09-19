@@ -1,69 +1,74 @@
-# React + TypeScript + Vite
+# Sketch Flow Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A prototype project** inspired by diagramming and flowchart tools. This is the **first version** built to experiment with shape drawing and canvas interactions. It’s still in the early stages, but it lays the foundation for a more advanced flowcharting tool. Future updates will introduce arrows, text inside shapes, styling options, and import/export functionality.
 
-Currently, two official plugins are available:
+## 🌟 Current Features (Prototype)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🖌️ **Draw Shapes** – Create basic shapes on the canvas:
+  - Rectangle
+  - Circle
+  - Square
+  - Diamond
+- 🔄 **Move Shapes** – Drag and reposition shapes anywhere on the canvas.
+- 🧹 **Clear All** – Reset the canvas with a single action.
 
-## Expanding the ESLint configuration
+## 🚀 Planned Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This is only the **prototype version**. Upcoming improvements include:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- ➡️ **Arrows** – Connect shapes with directional arrows
+- 🔗 **Join Shapes** – Build flowcharts by linking shapes together
+- ✍️ **Text Inside Shapes** – Add labels or descriptions inside each shape
+- 🎨 **Customization** – Change shape color, border stroke, and canvas background
+- 📤📥 **Export & Import** – Save and load your diagrams
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- ⚛️ **React (with TypeScript)** – For building interactive UI
+- 🎨 **Shadcn/UI** – For modern, accessible components
+- 🗂️ **Zustand** – For state management
+- ⚡ **Vite** – For fast bundling and development
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  ![React.js](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+  ![Shadcn](https://img.shields.io/badge/Shadcn-000000?style=for-the-badge&logo=radix-ui&logoColor=white)
+  ![Zustand](https://img.shields.io/badge/Zustand-443e38?style=for-the-badge&logo=react&logoColor=white)
+  ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📦 Installation
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Install this app with npm:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Seyam08/sketch-flow.git
+   ```
+
+2. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+3. Start the application:
+
+   Development version
+
+   ```
+   npm run dev
+   ```
+
+   build command
+
+   ```
+   npm run build
+   ```
+
+   preview command
+
+   ```
+   npm run preview
+   ```
+
+4. Open the package.json file to see all the scripts.
